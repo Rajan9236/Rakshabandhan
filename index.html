@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Raksha Sutra 2077 – Melody Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap');
+
+    :root {
+      --glow-gold: #ffd700;
+      --glow-blue: #00ffe5;
+      --bg-dark: #000000;
+      --bg-shift: #1a1a2e;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, var(--bg-dark), var(--bg-shift));
+      background-size: 200% 200%;
+      animation: shiftBG 20s ease-in-out infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Tiro Devanagari Hindi', serif;
+      color: white;
+      text-align: center;
+    }
+
+    @keyframes shiftBG {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--glow-gold);
+      text-shadow: 0 0 10px var(--glow-gold), 0 0 20px var(--glow-gold), 0 0 40px var(--glow-gold);
+      animation: glowText 2s ease-in-out infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 10px var(--glow-gold); }
+      to { text-shadow: 0 0 30px var(--glow-gold), 0 0 50px var(--glow-gold); }
+    }
+
+    .rakhi {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 4px dashed var(--glow-gold);
+      box-shadow: 0 0 20px var(--glow-gold), 0 0 40px var(--glow-gold);
+      position: relative;
+      animation: spin 15s linear infinite;
+      margin: 20px 0;
+    }
+
+    .rakhi::before {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, var(--glow-gold), transparent);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px var(--glow-gold);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .chain-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 80px;
+      height: 80px;
+      transform: translate(-50%, -50%);
+      animation: rotateChain 5s linear infinite;
+    }
+
+    .chain-dot {
+      width: 8px; height: 8px;
+      background-color: var(--glow-gold);
+      box-shadow: 0 0 10px var(--glow-gold);
+      border-radius: 50%;
+      position: absolute;
+    }
+    /* 8 orbiting dots */
+    .chain-dot:nth-child(1) { top: 0%; left: 50%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(2) { top: 20%; left: 85%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(3) { top: 50%; left: 100%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(4) { top: 80%; left: 85%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(5) { top: 100%; left: 50%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(6) { top: 80%; left: 15%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(7) { top: 50%; left: 0%; transform: translate(-50%, -50%); }
+    .chain-dot:nth-child(8) { top: 20%; left: 15%; transform: translate(-50%, -50%); }
+
+    @keyframes rotateChain {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .shayari {
+      font-size: 1.3rem;
+      color: var(--glow-blue);
+      padding: 0 20px;
+      animation: fadeIn 3s ease-in;
+      text-shadow: 0 0 10px var(--glow-blue);
+      margin-bottom: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tap-hint {
+      font-size: 0.9rem;
+      color: #ccc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body onclick="startMusic()">
+  <h1>✨ Happy Rakshabandhan</h1>
+
+  <div class="rakhi">
+    <div class="chain-ring">
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+      <div class="chain-dot"></div>
+    </div>
+  </div>
+
+  <p class="shayari">
+    रेशम की डोर नहीं, ये आत्मा का संग है,<br>
+    तू जहां भी हो, मेरा आशीर्वाद तेरे संग है।
+  </p>
+  <p class="tap-hint">🎵 टैप करें संगीत शुरू करने के लिए</p>
+
+  <audio id="bg-music" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-meditation-soft-flute-132.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function startMusic() {
+      const audio = document.getElementById("bg-music");
+      audio.play();
+      if ("vibrate" in navigator) navigator.vibrate(100);
+      document.querySelector('.tap-hint').style.display = 'none';
+     
+    }
+  </script>
+</body>
+</html>
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'e4aeb06bfbe0e7fb95d488f076233bb8',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/e4aeb06bfbe0e7fb95d488f076233bb8/invoke.js"></script>
